@@ -52,7 +52,8 @@ def myIBCF(user):
     for m in np.argwhere(np.isnan(w)).T[0]:
         w[m] = (S[m, ind] * w[ind]).sum() / S[m, ind].sum()
 
-    print(w, w[-ind])
+    print(w)
+    print(ind)
     
     top_movs = np.argsort(w[-ind])
 
