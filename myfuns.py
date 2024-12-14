@@ -54,6 +54,7 @@ def myIBCF(user):
 
     print(w)
     print(ind)
+    print(w[-ind])
     
     top_movs = np.argsort(w[-ind])
 
