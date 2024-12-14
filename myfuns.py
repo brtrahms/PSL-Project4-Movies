@@ -54,7 +54,7 @@ def myIBCF(user):
 
     top_movs = movies['movie_id'].loc[top_movs[:10]].to_numpy()
 
-    return movies.set_index('movie_id').loc[np.concat((top_movs, popular_movs.index.to_numpy()[:10 - len(top_movs)]))].reset_index()
+    return movies.set_index('movie_id').loc[top_movs].reset_index()
 
 def get_displayed_movies():
     return movies.head(100)
