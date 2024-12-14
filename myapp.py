@@ -31,6 +31,7 @@ CONTENT_STYLE = {
     "margin-left": "18rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
+    "background-color": "#FFE5CC",
 }
 
 sidebar = html.Div(
@@ -94,7 +95,7 @@ def render_page_content(pathname):
                 dcc.Loading(
                     [
                         dcc.Link(
-                            "Try again", href="/system-2", refresh=True, 
+                            "Try again", href="/", refresh=True, 
                             className="mb-2 d-block"
                         ),
                         html.Div(
