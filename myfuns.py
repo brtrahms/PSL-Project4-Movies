@@ -15,21 +15,21 @@ movie_data = [line.split("::") for line in movie_lines if line]
 movies = pd.DataFrame(movie_data, columns=['movie_id', 'title', 'genres'])
 movies['movie_id'] = movies['movie_id'].astype(int)
 
-# Define the URL for movie data
-myurl = "https://liangfgithub.github.io/MovieData/ratings.dat?raw=true"
+# # Define the URL for movie data
+# myurl = "https://liangfgithub.github.io/MovieData/ratings.dat?raw=true"
 
-# Fetch the data from the URL
-response = requests.get(myurl)
+# # Fetch the data from the URL
+# response = requests.get(myurl)
 
-# Split the data into lines and then split each line using "::"
-ratings_lines = response.text.split('\n')
-ratings_data = [line.split("::") for line in ratings_lines if line]
+# # Split the data into lines and then split each line using "::"
+# ratings_lines = response.text.split('\n')
+# ratings_data = [line.split("::") for line in ratings_lines if line]
 
-# Create a DataFrame from the movie data
-ratings = pd.DataFrame(movie_data, columns=['UserID', 'MovieID', 'Rating', 'Timestamp'])
-ratings['MovieID'] = movies['MovieID'].astype(int)
+# # Create a DataFrame from the movie data
+# ratings = pd.DataFrame(movie_data, columns=['UserID', 'MovieID', 'Rating', 'Timestamp'])
+# ratings['MovieID'] = movies['MovieID'].astype(int)
 
-popular_movs = ratings.groupby('').count().sort_values(by='Rating', ascending=False)
+# popular_movs = ratings.groupby('').count().sort_values(by='Rating', ascending=False)
 
 genres = list(
     sorted(set([genre for genres in movies.genres.unique() for genre in genres.split("|")]))
@@ -39,7 +39,7 @@ def myIBCF(w):
 
     print(w)
     
-    S = np.load('S_3706x3706.npz')
+    S = np.load('S_100x100.npy')
 
     ind = np.argwhere(~np.isnan(w)).T[0]
     
