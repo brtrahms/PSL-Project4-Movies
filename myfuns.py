@@ -41,7 +41,7 @@ def myIBCF(user):
     w = np.full(shape=100, fill_value=np.nan)
 
     for mov in user.keys():
-        w[moveies[movies['movie_id'] == mov].index] = user[mov]
+        w[movies[movies['movie_id'] == mov].index] = user[mov]
     
     S = np.load('S_100x100.npy')
 
