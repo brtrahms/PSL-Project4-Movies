@@ -52,10 +52,12 @@ def myIBCF(user):
     for m in np.argwhere(np.isnan(w)).T[0]:
         w[m] = (S[m, ind] * w[ind]).sum() / S[m, ind].sum()
 
-    print(w)
+    print(w, w[-ind]))
     
     top_movs = np.argsort(w[-ind])
 
+    print(top_movs)
+    
     top_movs = movies['movie_id'].loc[top_movs[:10]].to_numpy()
 
     print("movies: ", top_movs)
