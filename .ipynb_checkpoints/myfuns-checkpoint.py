@@ -42,6 +42,8 @@ def myIBCF(user):
 
     for mov in user.keys():
         w[movies[movies['movie_id'] == mov].index] = user[mov]
+
+    print("ratings: ", w)
     
     S = np.load('S_100x100.npy')
 
@@ -54,6 +56,8 @@ def myIBCF(user):
 
     top_movs = movies['movie_id'].loc[top_movs[:10]].to_numpy()
 
+    print("movies: ", top_movs)
+    
     return movies.set_index('movie_id').loc[top_movs].reset_index()
 
 def get_displayed_movies():
