@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import requests
 
 # Define the URL for movie data
@@ -35,9 +36,12 @@ genres = list(
     sorted(set([genre for genres in movies.genres.unique() for genre in genres.split("|")]))
 )
 
-def myIBCF(w):
+def myIBCF(user):
 
-    print(w)
+    w = np.full(shape=100, fill_value=np.nan)
+
+    for mov in user.keys():
+        w[moveies[movies['movie_id'] == mov].index] = user[mov]
     
     S = np.load('S_100x100.npy')
 
