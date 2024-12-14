@@ -8,7 +8,7 @@ from dash import Input, Output, dcc, html
 from dash.dependencies import ALL, State
 
 from myfuns import (genres, get_displayed_movies, get_popular_movies,
-                    get_recommended_movies)
+                    get_recommended_movies, myIBCF)
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP], 
     suppress_callback_exceptions=True)
@@ -22,7 +22,7 @@ SIDEBAR_STYLE = {
     "bottom": 0,
     "width": "16rem",
     "padding": "2rem 1rem",
-    "background-color": "#f8f9fa",
+    "background-color": "#FFB266",
 }
 
 # the styles for the main content position it to the right of the sidebar and
@@ -35,16 +35,8 @@ CONTENT_STYLE = {
 
 sidebar = html.Div(
     [
-        html.H3("Movie Recommender", className="display-8"),
-        html.Hr(),
-        dbc.Nav(
-            [
-                dbc.NavLink("System 1 - Genre", href="/", active="exact"),
-                dbc.NavLink("System 2 - Collaborative", href="/system-2", active="exact"),
-            ],
-            vertical=True,
-            pills=True,
-        ),
+        html.H3("System II: Movie Recommender", className="display-8"),
+        html.Hr()
     ],
     style=SIDEBAR_STYLE,
 )
@@ -59,19 +51,6 @@ app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 
 def render_page_content(pathname):
     if pathname == "/":
-        return html.Div(
-            [
-                html.H1("Select a genre"),
-                dcc.Dropdown(
-                    id="genre-dropdown",
-                    options=[{"label": k, "value": k} for k in genres],
-                    value=None,
-                    className="mb-4",
-                ),
-                html.Div(id="genre-output", className=""),
-            ]
-        )
-    elif pathname == "/system-2":
         movies = get_displayed_movies()
         return html.Div(
             [
@@ -213,7 +192,7 @@ def on_getting_recommendations(style, ratings, ids):
         ids[i]["movie_id"]: int(rating) for i, rating in enumerate(ratings) if rating is not None
     }
   
-    recommended_movies = get_recommended_movies(rating_input)
+    recommended_movies = myIBCF(rating_input)
  
     return [get_movie_card(movie) for idx, movie in 
 recommended_movies.iterrows()]
