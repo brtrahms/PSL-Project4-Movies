@@ -53,10 +53,12 @@ def myIBCF(user):
         w[m] = (S[m, ind] * w[ind]).sum() / S[m, ind].sum()
 
     print(w)
-    print(ind)
-    print(w[-ind])
     
-    top_movs = np.argsort(w[-ind])
+    top_movs = np.argsort(w)
+
+    print(top_movs)
+    
+    top_movs = top_movs[~np.isin(top_movs, set(ind))]
 
     print(top_movs)
     
