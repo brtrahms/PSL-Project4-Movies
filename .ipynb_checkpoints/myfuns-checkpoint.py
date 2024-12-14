@@ -50,6 +50,9 @@ def myIBCF(user):
     ind = np.argwhere(~np.isnan(w)).T[0]
     
     for m in np.argwhere(np.isnan(w)).T[0]:
+
+        print((S[m, ind] * w[ind]).sum() , S[m, ind].sum())
+        
         w[m] = (S[m, ind] * w[ind]).sum() / S[m, ind].sum()
 
     print(w)
