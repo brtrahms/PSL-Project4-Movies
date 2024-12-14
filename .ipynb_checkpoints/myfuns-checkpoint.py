@@ -39,7 +39,7 @@ def myIBCF(w):
 
     print(w)
     
-    S = np.load('S_3706x3706.npy')
+    S = np.load('S_3706x3706.npz')
 
     ind = np.argwhere(~np.isnan(w)).T[0]
     
