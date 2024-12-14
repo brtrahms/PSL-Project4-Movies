@@ -8,7 +8,7 @@ from dash import Input, Output, dcc, html
 from dash.dependencies import ALL, State
 
 from myfuns import (genres, get_displayed_movies, get_popular_movies,
-                    get_recommended_movies)
+                    get_recommended_movies, myIBCF)
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP], 
     suppress_callback_exceptions=True)
@@ -213,7 +213,7 @@ def on_getting_recommendations(style, ratings, ids):
         ids[i]["movie_id"]: int(rating) for i, rating in enumerate(ratings) if rating is not None
     }
   
-    recommended_movies = get_recommended_movies(rating_input)
+    recommended_movies = myIBCF(rating_input)
  
     return [get_movie_card(movie) for idx, movie in 
 recommended_movies.iterrows()]
