@@ -58,7 +58,7 @@ def myIBCF(user):
 
     print(top_movs)
     
-    top_movs = top_movs[~np.isin(top_movs, set(ind))]
+    top_movs = top_movs[~np.isin(top_movs, ind)]
 
     print(ind)
     print(top_movs)
