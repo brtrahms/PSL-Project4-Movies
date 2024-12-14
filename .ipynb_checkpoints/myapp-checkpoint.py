@@ -1,5 +1,3 @@
-
-
 from logging import debug
 from typing import Dict
 
@@ -13,7 +11,7 @@ from myfuns import (genres, get_displayed_movies, get_popular_movies,
                     get_recommended_movies)
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP], 
-               suppress_callback_exceptions=True)
+    suppress_callback_exceptions=True)
 server = app.server
 
 # the style arguments for the sidebar. We use position:fixed and a fixed width
@@ -56,7 +54,8 @@ content = html.Div(id="page-content", style=CONTENT_STYLE)
 
 app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 
-@app.callback(Output("page-content", "children"), [Input("url", "pathname")])
+@app.callback(Output("page-content", "children"), [Input("url", 
+"pathname")])
 
 def render_page_content(pathname):
     if pathname == "/":
@@ -104,19 +103,20 @@ def render_page_content(pathname):
                                 get_movie_card(movie, with_rating=True)
                                 for idx, movie in movies.iterrows()
                             ],
-                            className="row row-cols-1 row-cols-5",
-                            id="rating-movies",
+                            className="row row-cols-1 row-cols-5", id="rating-movies",
                         ),
                     ],
                     id="rate-movie-container",
                 ),
                 html.H1(
-                    "Your recommendations", id="your-recommendation",  style={"display": "none"}
+                    "Your recommendations", id="your-recommendation",  
+                    style={"display": "none"}
                 ),
                 dcc.Loading(
                     [
                         dcc.Link(
-                            "Try again", href="/system-2", refresh=True, className="mb-2 d-block"
+                            "Try again", href="/system-2", refresh=True, 
+                            className="mb-2 d-block"
                         ),
                         html.Div(
                             className="row row-cols-1 row-cols-5",
@@ -215,7 +215,8 @@ def on_getting_recommendations(style, ratings, ids):
   
     recommended_movies = get_recommended_movies(rating_input)
  
-    return [get_movie_card(movie) for idx, movie in recommended_movies.iterrows()]
+    return [get_movie_card(movie) for idx, movie in 
+recommended_movies.iterrows()]
 
 
 @app.callback(
@@ -226,7 +227,4 @@ def update_button_recommened_visibility(values):
     return not list(filter(None, values))
 
 if __name__ == "__main__":
-    app.run_server(port=8080, debug=True)
-
- 
-
+    app.run_server(debug=True)
