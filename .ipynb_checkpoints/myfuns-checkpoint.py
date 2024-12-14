@@ -60,6 +60,7 @@ def myIBCF(user):
     
     top_movs = top_movs[~np.isin(top_movs, set(ind))]
 
+    print(ind)
     print(top_movs)
     
     top_movs = movies['movie_id'].loc[top_movs[:10]].to_numpy()
