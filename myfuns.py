@@ -38,7 +38,9 @@ genres = list(
 
 def myIBCF(w):
 
-    Sim = np.load('S_3706x30.npy')
+    Sim = np.load('S_100x30.npy')
+    R_cols = np.load('R_cols.npy')
+    popular_movs = np.load('pop_movs.npy')
 
     rated = ~np.isnan(w)
     
@@ -58,11 +60,9 @@ def myIBCF(w):
     
     top_movs = top_movs[~np.isin(top_movs, np.argwhere(rated))]
 
-    top_movs = np.char.add('m', R.columns[top_movs[:10]].to_numpy().astype(str))
+    top_movs = np.char.add('m', R_cols[top_movs[:10]].to_numpy().astype(str))
 
-    return np.concat((top_movs, np.char.add('m', popular_movs.index.to_numpy()[:10 - len(top_movs)].astype(str))))
-    
-    return movies.set_index('movie_id').loc[top_movs].reset_index()
+    return np.concat((top_movs, np.char.add('m', popular_movs[:10 - len(top_movs)].astype(str))))
 
 def get_displayed_movies():
     return movies.head(100)
