@@ -36,39 +36,31 @@ genres = list(
     sorted(set([genre for genres in movies.genres.unique() for genre in genres.split("|")]))
 )
 
-def myIBCF(user):
+def myIBCF(w):
 
-    w = np.full(shape=100, fill_value=np.nan)
+    Sim = np.load('S_3706x30.npy')
 
-    for mov in user.keys():
-        w[movies[movies['movie_id'] == mov].index] = user[mov]
-
-    print("ratings: ", w)
+    rated = ~np.isnan(w)
     
-    S = np.load('S_100x100.npy')
+    for m in np.argwhere(~rated).T[0]:
 
-    ind = np.argwhere(~np.isnan(w)).T[0]
-    
-    for m in np.argwhere(np.isnan(w)).T[0]:
-
-        print((S[m, ind] * w[ind]).sum() , S[m, ind].sum())
+        ind = ~np.isnan(Sim[m]) & rated
         
-        w[m] = (S[m, ind] * w[ind]).sum() / S[m, ind].sum()
-
-    print(w)
+        w[m] = (Sim[m, ind] * w[ind]).sum() / Sim[m, ind].sum()
     
-    top_movs = np.argsort(w)
+    top_movs = np.argsort(w)[::-1]
 
-    print(top_movs)
+    mask = np.isnan(w)
+
+    top_movs = top_movs[~mask[top_movs] & ~rated[top_movs]]
     
-    top_movs = top_movs[~np.isin(top_movs, ind)]
-
-    print(ind)
-    print(top_movs)
+    top_movs = np.argsort(np.where(np.isnan(w), 0, w))[::-1]
     
-    top_movs = movies['movie_id'].loc[top_movs[:10]].to_numpy()
+    top_movs = top_movs[~np.isin(top_movs, np.argwhere(rated))]
 
-    print("movies: ", top_movs)
+    top_movs = np.char.add('m', R.columns[top_movs[:10]].to_numpy().astype(str))
+
+    return np.concat((top_movs, np.char.add('m', popular_movs.index.to_numpy()[:10 - len(top_movs)].astype(str))))
     
     return movies.set_index('movie_id').loc[top_movs].reset_index()
 
