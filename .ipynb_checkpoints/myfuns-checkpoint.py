@@ -43,7 +43,7 @@ def myIBCF(user):
     for mov in user.keys():
         w[movies[movies['movie_id'] == mov].index] = user[mov]
     
-    Sim = np.load('S_100x30.npy')
+    Sim = np.load('S_100x30.npy')[:,:100]
     R_cols = np.load('R_cols.npy')
     popular_movs = np.load('pop_movs.npy')
 
