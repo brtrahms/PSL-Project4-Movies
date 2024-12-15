@@ -36,8 +36,13 @@ genres = list(
     sorted(set([genre for genres in movies.genres.unique() for genre in genres.split("|")]))
 )
 
-def myIBCF(w):
+def myIBCF(user):
 
+    w = np.full(shape=100, fill_value=np.nan)
+
+    for mov in user.keys():
+        w[movies[movies['movie_id'] == mov].index] = user[mov]
+    
     Sim = np.load('S_100x30.npy')
     R_cols = np.load('R_cols.npy')
     popular_movs = np.load('pop_movs.npy')
