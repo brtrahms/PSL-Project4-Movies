@@ -60,9 +60,11 @@ def myIBCF(w):
     
     top_movs = top_movs[~np.isin(top_movs, np.argwhere(rated))]
 
-    top_movs = np.char.add('m', R_cols[top_movs[:10]].to_numpy().astype(str))
+    top_movs = R_cols[top_movs[:10]]
 
-    return np.concat((top_movs, np.char.add('m', popular_movs[:10 - len(top_movs)].astype(str))))
+    top_movs = np.concat((top_movs, popular_movs[:10 - len(top_movs)]))
+    
+    return movies.set_index('movie_id').loc[top_movs].reset_index()
 
 def get_displayed_movies():
     return movies.head(100)
